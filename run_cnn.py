@@ -43,4 +43,4 @@ for epoch in range(config['max_epoch']):
 
     if epoch % config['test_epoch'] == 0:
         LOG_INFO('Testing @ %d epoch...' % (epoch))
-        test_net(model, loss, train_data, train_label, config['batch_size'])
+        test_net(model, loss, test_data, test_label, config['batch_size'])
