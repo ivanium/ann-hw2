@@ -21,12 +21,13 @@ class SoftmaxCrossEntropyLoss(object):
         '''Your codes here'''
         e_input = np.exp(input)
         e_input_sum = np.repeat(np.sum(e_input, axis=1), 10, axis=0).reshape(e_input.shape)
-        loss = -np.mean(np.sum(np.multiply(np.log(np.divide(e_input, e_input_sum)), target), axis=1))
-        print(input[0])
-        print(e_input[0])
-        print(e_input_sum[0])
-        print(target[0])
-        print(loss)
+        h_input = np.divide(e_input, e_input_sum)
+        loss = -np.mean(np.sum(np.multiply(np.log(h_input), target), axis=1))
+        # print(input[0])
+        # print(e_input[0])
+        # print(e_input_sum[0])
+        # print(target[0])
+        # print(loss)
         return loss
 
     def backward(self, input, target):

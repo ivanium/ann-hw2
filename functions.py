@@ -1,5 +1,5 @@
 import numpy as np
-
+# from conv_func import im2col, col2im
 
 def im2col(A, kernel_size):
     '''

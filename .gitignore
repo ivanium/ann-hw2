@@ -3,3 +3,9 @@
 .vscode/tags
 *.ipynb
 *.pyc
+*.c
+*.pyx
+*.DS_Store
+*.so
+*.png
+*.o

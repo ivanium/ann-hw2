@@ -54,8 +54,8 @@ config = {
     'test_epoch': 5
 }
 
-model, loss = LeNet()
-# model, loss = basicConv2Layer()
+# model, loss = LeNet()
+model, loss = basicConv2Layer()
 
 for epoch in range(config['max_epoch']):
     LOG_INFO('Training @ %d epoch...' % (epoch))
