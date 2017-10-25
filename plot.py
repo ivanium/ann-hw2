@@ -1,4 +1,5 @@
 import matplotlib as mpl
+mpl.use("Pdf")
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -89,7 +90,7 @@ def save_data(name = ''):
     np.save(name + '_loss_list.npy', (local_loss_list))
     np.save(name + '_acc_list.npy', (local_acc_list))
     np.save(name + '_test_acc_list.npy', (local_test_acc_list))
-    np.save(name + '_vali_acc_list.npy', (local_vali_acc_list))
+    np.save(name + '_test_loss_list.npy', (local_test_loss_list))
 
 
 def cal():
