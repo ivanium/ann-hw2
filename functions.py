@@ -80,7 +80,7 @@ def conv2d_backward(input, grad_output, W, b, kernel_size, pad):
     
     output_channel = W.shape[0]
     input_channel = W.shape[1]
-    W_rot = W[ : , : , ::-1, ::-1]
+    W_rot = np.rot90(W.transpose(2,3,0,1), 2).transpose(2,3,0,1)
     W_cols = W_rot.transpose(1,0,2,3).reshape(input_channel, -1) # (in_c) x (out_c*k_s*k_s)
     grad_input_cols = np.dot(grad_output_cols, W_cols.T)
 
@@ -95,8 +95,7 @@ def conv2d_backward(input, grad_output, W, b, kernel_size, pad):
     input_cols = im2col(padded_input.transpose(1,0,2,3), height_blocks) # (in_c*ks*ks) x (hb*wb*n)
     grad_W_cols = np.dot(input_cols, grad_output_cols.T)
     grad_W = col2im(grad_W_cols, kernel_size, kernel_size, input_channel, output_channel).transpose(1,0,2,3)
-    # print(grad_W.shape)
-    
+
 
     grad_b = np.sum(np.sum(np.sum(grad_output_tran, axis=1), axis=1), axis=1)
 
@@ -151,9 +150,7 @@ def avgpool2d_forward(input, kernel_size, pad):
     strd = (height_blocks*width_blocks*channel)*s1, (height_blocks*width_blocks)*s1, width_blocks*s1, s1
 
     output = np.lib.stride_tricks.as_strided(output_cols, shape=shp, strides=strd)
-    # print('af')
-    # print(input.shape)
-    # print(output.shape)
+
     return output
 
 
@@ -173,5 +170,8 @@ def avgpool2d_backward(input, grad_output, kernel_size, pad):
     shp = batch_size, channel, kernel_size * height, kernel_size * width
     strd = s3, s2, int(s1/kernel_size), int(s0/kernel_size)
 
-    grad_input = np.repeat(np.repeat(grad_output.transpose(2,3,0,1), kernel_size, axis=1), kernel_size, axis=0).transpose(2,3,0,1)
-    return grad_input
+    grad_input = np.repeat(np.repeat(grad_output.transpose(2,3,0,1), kernel_size, axis=1), kernel_size, axis=0).transpose(2,3,0,1) / (kernel_size * kernel_size)
+    if(pad == 0):
+        return grad_input
+    else:
+        return grad_input[:,:,pad:-pad, pad:-pad]

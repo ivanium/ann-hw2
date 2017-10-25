@@ -65,5 +65,5 @@ def test_net(model, loss, inputs, labels, batch_size):
     total_loss = np.mean(loss_list)
     total_acc = np.mean(acc_list)
     plot_test_acc(total_loss, total_acc)
-    msg = '    Testing, total mean loss %.5f, total acc %.5f' % (total_loss, total_loss)
+    msg = '    Testing, total mean loss %.5f, total acc %.5f' % (total_loss, total_acc)
     LOG_INFO(msg)

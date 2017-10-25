@@ -5,6 +5,8 @@ from loss import EuclideanLoss, SoftmaxCrossEntropyLoss
 from solve_net import train_net, test_net
 from load_data import load_mnist_4d
 
+from plot import save_data
+
 train_data, test_data, train_label, test_label = load_mnist_4d('data')
 
 # Your model defintion here
@@ -33,7 +35,9 @@ def LeNet():
     model.add(AvgPool2D('pool2', 2, 0))  # output shape: N x 16 x 5 x 5
     model.add(Reshape('flatten', (-1, 400)))
     model.add(Linear('fc1',400, 120, 0.1))
+    model.add(Relu('relu3'))
     model.add(Linear('fc2', 120, 84, 0.1))
+    model.add(Relu('relu4'))
     model.add(Linear('fc3', 84, 10, 0.1))
 
     loss = SoftmaxCrossEntropyLoss(name='loss')
@@ -50,7 +54,7 @@ config = {
     'momentum': 0.0,
     'batch_size': 100,
     'max_epoch': 100,
-    'disp_freq': 5,
+    'disp_freq': 50,
     'test_epoch': 5
 }
 
@@ -64,3 +68,5 @@ for epoch in range(config['max_epoch']):
     if epoch % config['test_epoch'] == 0:
         LOG_INFO('Testing @ %d epoch...' % (epoch))
         test_net(model, loss, test_data, test_label, config['batch_size'])
+
+save_data("basic")

@@ -1,7 +1,6 @@
 import numpy as np
 from functions import conv2d_forward, conv2d_backward, avgpool2d_forward, avgpool2d_backward
 
-
 class Layer(object):
     def __init__(self, name, trainable=False):
         self.name = name

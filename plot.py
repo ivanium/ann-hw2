@@ -37,7 +37,7 @@ plt.tight_layout()
 
 local_loss_list = []
 local_acc_list = []
-def plot_loss(loss, acc, name = 'loss', plot = True):
+def plot_loss(loss, acc, name = 'loss', plot = False):
     global local_loss_list, local_acc_list
     local_loss_list.append(loss)
     local_acc_list.append(acc)
@@ -68,18 +68,6 @@ def plot_test_acc(loss, acc, name = 'loss', plot = False):
 
         fig.savefig(name + '.png')
 
-# local_vali_acc_list = []
-# def plot_vali_acc(acc, name = 'loss', plot = False):
-#     global local_vali_acc_list
-#     local_vali_acc_list.append(acc)
-#     if(plot):
-#         xlen = len(local_vali_acc_list)
-#         x = np.linspace(0, xlen*50, xlen, endpoint=False)
-
-#         vali_ax.plot(x, local_vali_acc_list, color = 'b')
-
-#         fig.savefig(name + '.png')
-
 def plot_all(name = 'loss'):
     xlen = len(local_loss_list)
     x = np.linspace(0, xlen*50, xlen, endpoint=False)
@@ -98,10 +86,10 @@ def plot_all(name = 'loss'):
     save_data()
 
 def save_data(name = ''):
-    np.save(name + 'loss_list.npy', (local_loss_list))
-    np.save(name + 'acc_list.npy', (local_acc_list))
-    # np.save(name + 'test_acc_list.npy', (local_test_acc_list))
-    # np.save(name + 'vali_acc_list.npy', (local_vali_acc_list))
+    np.save(name + '_loss_list.npy', (local_loss_list))
+    np.save(name + '_acc_list.npy', (local_acc_list))
+    np.save(name + '_test_acc_list.npy', (local_test_acc_list))
+    np.save(name + '_vali_acc_list.npy', (local_vali_acc_list))
 
 
 def cal():
