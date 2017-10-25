@@ -49,7 +49,7 @@ def LeNet():
 #       'disp_freq' denotes number of iterations in one epoch to display information.
 
 config = {
-    'learning_rate': 0.1,
+    'learning_rate': 0.05,
     'weight_decay': 0.0,
     'momentum': 0.0,
     'batch_size': 100,
