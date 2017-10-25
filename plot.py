@@ -69,7 +69,17 @@ def plot_test_acc(loss, acc, name = 'loss', plot = False):
 
         fig.savefig(name + '.png')
 
+def load_data(filename = 'basic'):
+    global local_loss_list, local_acc_list, local_test_acc_list, local_test_loss_list
+    local_loss_list = np.load(filename + '_loss_list.npy')
+    local_acc_list = np.load(filename + '_acc_list.npy')
+    # local_test_loss_list = np.load(filename + '_test_loss_list.npy')
+    local_test_acc_list = np.load(filename + '_test_acc_list.npy')
+
 def plot_all(name = 'loss'):
+    global local_loss_list, local_acc_list, local_test_acc_list, local_test_loss_list
+    load_data()
+
     xlen = len(local_loss_list)
     x = np.linspace(0, xlen*50, xlen, endpoint=False)
     loss_ax.plot(x, local_loss_list, color = 'b')
@@ -84,7 +94,7 @@ def plot_all(name = 'loss'):
     # vali_ax.plot(x, local_vali_acc_list, color = 'b')
 
     fig.savefig(name + '.png')
-    save_data()
+    # save_data()
 
 def save_data(name = ''):
     np.save(name + '_loss_list.npy', (local_loss_list))
@@ -133,13 +143,10 @@ def cal():
     loss_ax.plot(x, loss_list0, color = 'b', label = 'learning_rate = 0.1')
     loss_ax.plot(x, loss_list3, color = 'g', label = 'learning_rate = 0.01')
     loss_ax.plot(x, loss_list6, color = 'r', label = 'learning_rate = 0.001')
-    # loss_ax.plot(x, loss_list9, color = 'orange', label = 'learning_rate = 0.')
-    # loss_ax.plot(x, loss_list10, color = 'pink', label = 'learning_rate = 0.0')
+
     acc_ax.plot(x, acc_list0, color = 'b', label = 'learning_rate = 0.1')
     acc_ax.plot(x, acc_list3, color = 'g', label = 'learning_rate = 0.01')
     acc_ax.plot(x, acc_list6, color = 'r', label = 'learning_rate = 0.001')
-    # acc_ax.plot(x, acc_list9, color = 'orange', label = 'hidden_layer_size = 100, 80')
-    # acc_ax.plot(x, acc_list10, color = 'pink', label = 'hidden_layer_size = 100, 100')
 
     loss_ax.legend(loc = 'upper right')
     acc_ax.legend(loc = 'lower right')
@@ -147,4 +154,5 @@ def cal():
     fig.savefig('comp.png')
     
 if __name__ == '__main__':
-    cal()
+    # cal()
+    plot_all()
